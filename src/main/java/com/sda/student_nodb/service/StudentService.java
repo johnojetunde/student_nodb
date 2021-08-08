@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,8 +28,43 @@ public class StudentService {
         repository.delete(id);
     }
 
+    public List<Student> getAllAndFilter(String name, String phoneNumber) {
+        return repository.findAll().stream()
+                .filter(s -> filterByMatchingFields(s, name, phoneNumber))
+                .collect(Collectors.toList());
+    }
+
+    private boolean filterByMatchingFields(Student student, String name, String phoneNumber) {
+//        boolean studentNameMatching = true;
+//        boolean studentPhoneNumberMatching = true;
+//        if(name != null){
+//            studentNameMatching = student.getName().equalsIgnoreCase(name);
+//        }
+//
+//        if(phoneNumber != null){
+//            studentPhoneNumberMatching = student.getPhoneNumber().equalsIgnoreCase(phoneNumber);
+//        }
+//
+//        return studentNameMatching && studentPhoneNumberMatching;
+
+        //
+        boolean matchingName = Optional.ofNullable(name)
+                .map(n -> student.getName().equalsIgnoreCase(n))
+                .orElse(true);
+
+        boolean matchingPhoneNumber = Optional.ofNullable(phoneNumber)
+                .map(n -> student.getPhoneNumber().equalsIgnoreCase(n))
+                .orElse(true);
+
+        return matchingName && matchingPhoneNumber;
+    }
+
     public Collection<Student> getAll() {
         return repository.findAll();
+    }
+
+    public Student update(Student student, Long id) {
+        return repository.update(student, id);
     }
 
     public Student getById(Long id) {

@@ -14,5 +14,7 @@ public interface StudentRepository {
 
     Student save(Student student);
 
+    Student update(Student student, Long id);
+
     void delete(Long id);
 }

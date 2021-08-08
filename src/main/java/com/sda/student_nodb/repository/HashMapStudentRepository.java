@@ -3,7 +3,10 @@ package com.sda.student_nodb.repository;
 import com.sda.student_nodb.model.Student;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class HashMapStudentRepository implements StudentRepository {
@@ -37,6 +40,23 @@ public class HashMapStudentRepository implements StudentRepository {
         LAST_ID = newId;
 
         return student;
+    }
+
+    @Override
+    public Student update(Student student, Long id) {
+        var existingStudent = findById(id)
+                .orElseThrow(() -> new RuntimeException(String.format("Student with id %d does not exist", id)));
+
+        existingStudent
+                .setName(student.getName())
+                .setAddress(student.getAddress())
+                .setEmail(student.getEmail())
+                .setGender(student.getGender())
+                .setPhoneNumber(student.getPhoneNumber());
+
+        MAP_DB.put(id, existingStudent);
+
+        return existingStudent;
     }
 
     @Override
