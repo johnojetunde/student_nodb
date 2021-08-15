@@ -4,10 +4,9 @@ import com.sda.student_nodb.model.Student;
 import com.sda.student_nodb.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Collection;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -23,7 +22,7 @@ public class StudentController {
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
 //    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Student create(@RequestBody Student student) {
+    public Student create(@Valid @RequestBody Student student) {
         return service.registerStudent(student);
     }
 
@@ -50,7 +49,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable("id") Long id, @RequestBody Student student) {
+    public Student updateStudent(@PathVariable("id") Long id, @Valid @c Student student) {
         return service.update(student, id);
     }
 
