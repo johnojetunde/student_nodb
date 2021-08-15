@@ -4,8 +4,10 @@ import com.sda.student_nodb.model.Student;
 import com.sda.student_nodb.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -51,4 +53,9 @@ public class StudentController {
     public Student updateStudent(@PathVariable("id") Long id, @RequestBody Student student) {
         return service.update(student, id);
     }
+
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<String> exceptionHandler(Throwable thrownException, HttpServletResponse response){
+//        return new ResponseEntity<>(thrownException.getMessage(),HttpStatus.BAD_REQUEST);
+//    }
 }

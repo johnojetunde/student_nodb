@@ -3,6 +3,7 @@ package com.sda.student_nodb.service;
 import com.sda.student_nodb.model.Student;
 import com.sda.student_nodb.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -11,14 +12,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository repository;
+    @Value("${database-type:inMemory}")
+    private final String databaseType;
+
+    public StudentService(StudentRepository repository,
+                          @Value("${database-type:inMemory}") String databaseType) {
+        this.repository = repository;
+        this.databaseType = databaseType;
+    }
 
     public Student registerStudent(Student student) {
         var existingStudent = repository.findByEmail(student.getEmail());
         if (existingStudent.isPresent()) {
             System.out.printf("\u001B[31m" + " Student with email %s \u001B[0m %n", student.getEmail());
+            throw new RuntimeException(String.format("Student with email %s exist",student.getEmail()));
         }
 
         return repository.save(student);
@@ -76,5 +86,9 @@ public class StudentService {
 
         System.out.printf("\u001B[31m" + " Student with id %d  does not exist \u001B[0m %n", id);
         return null;
+    }
+
+    public String getRepositoryName(){
+        return repository.databaseName();
     }
 }

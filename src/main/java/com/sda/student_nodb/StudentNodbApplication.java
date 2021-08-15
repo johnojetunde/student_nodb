@@ -45,6 +45,7 @@ public class StudentNodbApplication implements CommandLineRunner {
     }
 
     private int getOption(Scanner scanner) {
+        System.out.println("This is running with "+service.getRepositoryName()+" profile");
         System.out.println("1. Enter 1 to register\n" +
                 "2. Enter 2 to findById\n" +
                 "3. Enter 3 to findAll \n" +

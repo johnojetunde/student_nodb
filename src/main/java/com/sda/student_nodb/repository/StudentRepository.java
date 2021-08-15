@@ -17,4 +17,6 @@ public interface StudentRepository {
     Student update(Student student, Long id);
 
     void delete(Long id);
+
+    String databaseName();
 }

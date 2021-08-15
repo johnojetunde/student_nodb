@@ -1,6 +1,7 @@
 package com.sda.student_nodb.repository;
 
 import com.sda.student_nodb.model.Student;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -62,5 +63,10 @@ public class HashMapStudentRepository implements StudentRepository {
     @Override
     public void delete(Long id) {
         MAP_DB.remove(id);
+    }
+
+    @Override
+    public String databaseName() {
+        return "HashMap";
     }
 }
