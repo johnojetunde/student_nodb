@@ -3,10 +3,7 @@ package com.sda.student_nodb.model;
 import lombok.*;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -27,6 +24,7 @@ public class Student {
     private String name;
     @NotBlank(message = "Email is required")
     @Email(message = "Email is invalid")
+    @Column(unique = true)
     private String email;
     @NotBlank(message = "Gender is required")
     private String gender;
