@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Profile("hashmap")
 @Repository
-public class HashMapStudentRepository implements StudentRepository {
+public class HashMapStudentRepository implements StudentDBRepository {
     private static final Map<Long, Student> MAP_DB = new HashMap<>();
     private static Long LAST_ID = 0L;
 

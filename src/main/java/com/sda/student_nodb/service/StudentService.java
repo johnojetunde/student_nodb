@@ -1,8 +1,7 @@
 package com.sda.student_nodb.service;
 
 import com.sda.student_nodb.model.Student;
-import com.sda.student_nodb.repository.StudentRepository;
-import lombok.RequiredArgsConstructor;
+import com.sda.student_nodb.repository.StudentDBRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,11 @@ import java.util.stream.Collectors;
 @Service
 //@RequiredArgsConstructor
 public class StudentService {
-    private final StudentRepository repository;
+    private final StudentDBRepository repository;
     @Value("${database-type:inMemory}")
     private final String databaseType;
 
-    public StudentService(StudentRepository repository,
+    public StudentService(StudentDBRepository repository,
                           @Value("${database-type:inMemory}") String databaseType) {
         this.repository = repository;
         this.databaseType = databaseType;
