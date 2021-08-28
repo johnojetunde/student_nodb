@@ -14,7 +14,8 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <a th:href="@{/}" class="btn btn-warning"><i class="fa-solid fa-house"></i> Home</a>
-        <form name="student-add" th:object="${student}" th:method="post" th:action="@{/mvc/students}">
+        <form name="student-edit" th:object="${student}" th:method="post"
+              th:action="@{/mvc/students/edit/{id}(id=${student.id})}">
             <div class="row">
                 <div class="mb-3">
                     <label for="exampleFormControlInputName" class="form-label">Name</label>
@@ -65,7 +66,7 @@
                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{adress}" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Create Student</button>
+                    <button type="submit" class="btn btn-primary">Update Student</button>
                 </div>
             </div>
         </form>
