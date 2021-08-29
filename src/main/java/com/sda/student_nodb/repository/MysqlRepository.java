@@ -1,16 +1,16 @@
 package com.sda.student_nodb.repository;
 
 import com.sda.student_nodb.model.Student;
+import com.sda.student_nodb.model.StudentCourse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.domain.Sort.Direction.*;
-import static org.springframework.data.domain.Sort.Order.*;
+import java.util.stream.Collectors;
 
 @Profile("mysql")
 @Repository
@@ -18,6 +18,8 @@ import static org.springframework.data.domain.Sort.Order.*;
 public class MysqlRepository implements StudentDBRepository {
 
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
+    private final StudentCourseRepository studentCourseRepository;
 
     @Override
     public Optional<Student> findByEmail(String email) {
@@ -61,5 +63,16 @@ public class MysqlRepository implements StudentDBRepository {
     @Override
     public String databaseName() {
         return "MySQL";
+    }
+
+    public List<Student> findByCourseName(String courseName) {
+//        var courses = courseRepository.findAllByCourseName(courseName);
+//        return studentRepository.findAllByCoursesIn(courses);
+
+//       return  studentCourseRepository.findStudentByCourseName(courseName);
+
+        return studentCourseRepository.findAllByCourse_CourseName(courseName)
+                .stream().map(StudentCourse::getStudent)
+                .collect(Collectors.toList());
     }
 }
