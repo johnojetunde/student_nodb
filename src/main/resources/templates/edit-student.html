@@ -14,6 +14,8 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <a th:href="@{/}" class="btn btn-warning"><i class="fa-solid fa-house"></i> Home</a>
+        &nbsp;&nbsp; &nbsp;
+        <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
         <form name="student-edit" th:object="${student}" th:method="post"
               th:action="@{/mvc/students/edit/{id}(id=${student.id})}">
             <div class="row">

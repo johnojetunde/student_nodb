@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Add Page</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.0/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/37d01ba303.js"></script>
+
+</head>
+<body>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <a th:href="@{/}" class="btn btn-warning"><i class="fa-solid fa-house"></i> Home</a>
+        <form name="student-add" th:object="${user}" th:method="post" th:action="@{/users/add}">
+            <div class="row">
+                <div class="mb-3">
+                    <label for="exampleFormControlInputName" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="exampleFormControlInputName" placeholder="username"
+                           th:field="*{username}" required>
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleFormControlInput1" th:field="*{password}"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInputRole" class="form-label">Password</label>
+                    <select name="userRole" class="form-control" id="exampleFormControlInputRole" required>
+                        <option value="ROLE_USER">USER</option>
+                        <option value="ROLE_ADMIN">ADMIN</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Register User</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+</body>
+</html>
